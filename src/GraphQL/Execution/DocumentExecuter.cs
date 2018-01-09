@@ -284,6 +284,11 @@ namespace GraphQL
             return context;
         }
 
+        protected virtual Operation GetOperation(string operationName, Document document)
+        {
+            return document.GetOperation(operationName);
+        }
+
         public Task<IDictionary<string, object>> ExecuteOperationAsync(ExecutionContext context)
         {
             var rootType = GetOperationRootType(context.Document, context.Schema, context.Operation);
