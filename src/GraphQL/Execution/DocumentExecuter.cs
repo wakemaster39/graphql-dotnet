@@ -167,7 +167,7 @@ namespace GraphQL
 
                 result.Document = document;
 
-                var operation = GetOperation(config.OperationName, document);
+                var operation = document.GetOperation(config.OperationName);
                 result.Operation = operation;
                 metrics.SetOperationName(operation?.Name);
 
@@ -282,15 +282,6 @@ namespace GraphQL
             context.Metrics = metrics;
 
             return context;
-        }
-
-        protected virtual Operation GetOperation(string operationName, Document document)
-        {
-            var operation = !string.IsNullOrWhiteSpace(operationName)
-                ? document.Operations.WithName(operationName)
-                : document.Operations.FirstOrDefault();
-
-            return operation;
         }
 
         public Task<IDictionary<string, object>> ExecuteOperationAsync(ExecutionContext context)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GraphQL.Language.AST
 {
@@ -51,6 +52,15 @@ namespace GraphQL.Language.AST
             if (node.GetType() != this.GetType()) return false;
 
             return true;
+        }
+
+        public Operation GetOperation(string operationName)
+        {
+            var operation = !string.IsNullOrWhiteSpace(operationName)
+                ? Operations.WithName(operationName)
+                : Operations.FirstOrDefault();
+
+            return operation;
         }
     }
 }
